@@ -1,10 +1,11 @@
 from resorce import *
 
 
-def print_report(resources_in_machine=resources):
+def print_report(money):
     """Prints the amount of milk coffee and water in the coffee machine no need to pass anything"""
-    for key in resources_in_machine.keys():
-        print(f"{key} : {resources_in_machine[key]}")
+    for key in resources.keys():
+        print(f"{key} : {resources[key]}")
+    print (f"Money : ${money}")
 
 
 def money_process():
@@ -41,21 +42,22 @@ def check_transaction_success(user_drink_choice, MENU, resources):
     # total_money = money_process()
 
 
-def order(MENU, resources):
+def order(MENU, resources,money ):
     check = True
     while check:
         coffee_choice = input("What would you like? (espresso/latte/cappuccino):").lower()
         if coffee_choice == "report":
-            print_report()
+            print_report(money)
         elif coffee_choice == "off":
             check = False
         else:
             check, MENU, resources = check_transaction_success(coffee_choice, MENU, resources)
+            money +=  MENU[coffee_choice]['cost']
     print("The Coffee Machine is going to be turned off")
     return
 
-
-order(MENU, resources)
+money = 0
+order(MENU, resources, money )
 # TODO: 1. Print Report. print the amount of milk water and coffee in the machine.
 # TODO: 2. Check resource is sufficient for making the dink.
 # TODO: 3. Process the coins find out how much money the user has added
